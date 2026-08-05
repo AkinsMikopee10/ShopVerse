@@ -58,3 +58,16 @@ The frontend follows a feature-first architecture designed for scalability.
 - `services/` – API communication
 - `store/` – global UI state
 - `layouts/` – reusable page layouts
+
+### UI Foundation Refinements
+
+The component library follows a scalable architecture inspired by modern React design systems.
+
+Enhancements include:
+
+- Class Variance Authority (CVA) for variants
+- `tailwind-merge` for conflict-free class composition
+- `clsx`-based utility helpers
+- Path aliases (`@/`)
+- Accessible default component APIs
+- Reusable layout primitives (`Stack`, `Flex`, `Section`)
