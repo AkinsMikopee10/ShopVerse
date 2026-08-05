@@ -36,3 +36,25 @@ ShopVerse follows a centralized design system built around semantic design token
 - Reusable shadows and border radius
 - Lucide icons
 - Framer Motion for animations
+
+## Frontend Architecture
+
+The frontend follows a feature-first architecture designed for scalability.
+
+### Core Libraries
+
+- React Router
+- TanStack Query
+- Zustand
+- Axios
+- Tailwind CSS
+- Framer Motion
+
+### Structure
+
+- `app/` – application setup and providers
+- `components/` – shared UI components
+- `features/` – domain-specific modules
+- `services/` – API communication
+- `store/` – global UI state
+- `layouts/` – reusable page layouts
