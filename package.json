@@ -1,0 +1,15 @@
+{
+  "name": "shopverse",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "client": "npm run dev -w client",
+    "server": "npm run dev -w server",
+    "install:all": "npm install --workspaces",
+    "dev": "concurrently \"npm:client\" \"npm:server\""
+  }
+}
