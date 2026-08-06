@@ -29,6 +29,16 @@ export const findById = async (id) => {
 };
 
 /**
+ * Retrieve a user's profile.
+ *
+ * Password remains excluded because the
+ * User model uses `select: false`.
+ */
+export const findProfileById = async (id) => {
+  return User.findById(id);
+};
+
+/**
  * Create a new user.
  */
 

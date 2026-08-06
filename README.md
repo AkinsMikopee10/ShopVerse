@@ -130,3 +130,29 @@ MongoDB
 JWT
 
 The application now supports secure user registration.
+
+### Milestone 4 — Protected Routes & Current User ✅
+
+Completed:
+
+- JWT authentication middleware
+- Protected route infrastructure
+- `GET /api/auth/me` endpoint
+- Current user service and controller
+- Request authentication using Bearer tokens
+- Authenticated user available via `req.user`
+- Consistent 401 responses for missing, invalid, or expired tokens
+
+Authentication Flow:
+
+Client
+↓
+JWT Authentication Middleware
+↓
+Controller
+↓
+Service
+↓
+Repository
+↓
+MongoDB

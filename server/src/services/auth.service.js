@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import {
   findByEmail,
   findByEmailWithPassword,
+  findById,
   createUser,
 } from "../repositories/user.repository.js";
 import { generateAccessToken } from "../utils/jwt.js";
@@ -95,5 +96,30 @@ export const login = async (credentials) => {
       isVerified: user.isVerified,
     },
     token,
+  };
+};
+
+/**
+ * Get the currently authenticated user's profile.
+ *
+ * @param {string} userId
+ * @returns {Promise<Object>}
+ */
+export const getCurrentUser = async (userId) => {
+  const user = await findById(userId);
+
+  // The account may have been deleted after
+  // the JWT was issued.
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  return {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    avatar: user.avatar,
+    isVerified: user.isVerified,
   };
 };

@@ -55,3 +55,29 @@ export const login = async (req, res) => {
     });
   }
 };
+
+/**
+ * Get the currently authenticated user's profile.
+ */
+export const getCurrentUser = async (req, res) => {
+  try {
+    const profile = await authService.getCurrentUser(req.user.userId);
+
+    return res.status(200).json({
+      success: true,
+      data: profile,
+    });
+  } catch (error) {
+    if (error.message === "User not found.") {
+      return res.status(404).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while retrieving the user profile.",
+    });
+  }
+};
