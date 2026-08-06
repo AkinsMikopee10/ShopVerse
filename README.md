@@ -156,3 +156,22 @@ Service
 Repository
 ↓
 MongoDB
+
+### Refinement Milestone — Error Handling Infrastructure ✅
+
+Completed:
+
+- Added `AppError` for structured operational errors.
+- Added `asyncHandler` to eliminate repetitive `try...catch` blocks.
+- Added a global error-handling middleware.
+- Refactored authentication services to throw `AppError`.
+- Refactored authentication controllers to use `asyncHandler`.
+- Centralized HTTP error responses.
+
+Benefits:
+
+- Cleaner controllers
+- Consistent API error format
+- Easier debugging
+- Easier maintenance
+- Scalable foundation for future modules
