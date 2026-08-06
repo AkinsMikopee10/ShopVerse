@@ -12,7 +12,7 @@ app.use(express.json());
 /**
  * Health Check
  */
-app.get("/api/v1/health", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message: "ShopVerse API is running successfully!",
