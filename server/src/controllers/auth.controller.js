@@ -1,39 +1,41 @@
 import * as authService from "../services/auth.service.js";
 
 /**
- * Handle user registration.
+ * Register a new user.
  */
 export const register = async (req, res) => {
   try {
-    await authService.register();
+    const result = await authService.register(req.body);
 
-    return res.status(501).json({
-      success: false,
-      message: "User registration is not implemented yet.",
+    return res.status(201).json({
+      success: true,
+      data: result,
+      message: "Account created successfully.",
     });
   } catch (error) {
-    return res.status(501).json({
+    // Duplicate email error handling
+    if (error.message === "An account with this email already exists.") {
+      return res.status(409).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    return res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Something went wrong while creating the account.",
     });
   }
 };
 
 /**
- * Handle user login.
+ * User login.
+ *
+ * To be implemented in the next milestone.
  */
 export const login = async (req, res) => {
-  try {
-    await authService.login();
-
-    return res.status(501).json({
-      success: false,
-      message: "User login is not implemented yet.",
-    });
-  } catch (error) {
-    return res.status(501).json({
-      success: false,
-      message: error.message,
-    });
-  }
+  return res.status(501).json({
+    success: false,
+    message: "User login is not implemented yet.",
+  });
 };

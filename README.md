@@ -101,3 +101,32 @@ MongoDB
 No authentication business logic has been implemented yet.
 
 Registration and login will be implemented in Milestone 2.
+
+### Milestone 2 — User Registration ✅
+
+Completed:
+
+- Registration endpoint
+- Zod request validation
+- Generic validation middleware
+- Duplicate email protection
+- Password hashing with bcrypt
+- JWT generation after registration
+- Secure API responses
+- RESTful error handling
+
+Authentication Flow:
+
+Validation
+↓
+Controller
+↓
+Service
+↓
+Repository
+↓
+MongoDB
+↓
+JWT
+
+The application now supports secure user registration.

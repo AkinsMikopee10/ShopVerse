@@ -1,10 +1,9 @@
 import User from "../models/User.js";
 
 /**
- * Find a user by their email address.
+ * Find a user by email.
  *
- * @param {string} email
- * @returns {Promise<Object|null>}
+ * Password is excluded by default.
  */
 
 export const findByEmail = async (email) => {
@@ -12,10 +11,17 @@ export const findByEmail = async (email) => {
 };
 
 /**
- * Find a user by their ID.
+ * Find a user by email including the password hash.
  *
- * @param {string} id
- * @returns {Promise<Object|null>}
+ * Used only during authentication.
+ */
+
+export const findByEmailWithPassword = async (email) => {
+  return User.findOne({ email }).select("+password");
+};
+
+/**
+ * Find a user by ID.
  */
 
 export const findById = async (id) => {
@@ -24,9 +30,6 @@ export const findById = async (id) => {
 
 /**
  * Create a new user.
- *
- * @param {Object} userData
- * @returns {Promise<Object>}
  */
 
 export const createUser = async (userData) => {
@@ -34,11 +37,7 @@ export const createUser = async (userData) => {
 };
 
 /**
- * Update a user by ID.
- *
- * @param {string} id
- * @param {Object} updates
- * @returns {Promise<Object|null>}
+ * Update a user.
  */
 
 export const updateUser = async (id, updates) => {
@@ -46,10 +45,7 @@ export const updateUser = async (id, updates) => {
 };
 
 /**
- * Delete a user by ID.
- *
- * @param {string} id
- * @returns {Promise<Object|null>}
+ * Delete a user.
  */
 export const deleteUser = async (id) => {
   return User.findByIdAndDelete(id);
