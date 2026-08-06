@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import AppError from "../errors/AppError.js";
 import {
   findByEmail,
   findByEmailWithPassword,
@@ -21,7 +22,7 @@ export const register = async (userData) => {
   const existingUser = await findByEmail(email);
 
   if (existingUser) {
-    throw new Error("An account with this email already exists.");
+    throw new AppError("An account with this email already exists.", 409);
   }
 
   // Hash the password before saving.
@@ -69,14 +70,14 @@ export const login = async (credentials) => {
 
   // Do not reveal whether the email exists.
   if (!user) {
-    throw new Error("Invalid email or password.");
+    throw new AppError("Invalid email or password.", 401);
   }
 
   // Compare the provided password with the stored hash.
   const passwordMatches = await bcrypt.compare(password, user.password);
 
   if (!passwordMatches) {
-    throw new Error("Invalid email or password.");
+    throw new AppError("Invalid email or password.", 401);
   }
 
   // Generate an access token for the authenticated user.
@@ -111,7 +112,7 @@ export const getCurrentUser = async (userId) => {
   // The account may have been deleted after
   // the JWT was issued.
   if (!user) {
-    throw new Error("User not found.");
+    throw new AppError("User not found.", 404);
   }
 
   return {
