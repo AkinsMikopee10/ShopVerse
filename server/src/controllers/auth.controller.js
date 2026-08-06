@@ -29,13 +29,29 @@ export const register = async (req, res) => {
 };
 
 /**
- * User login.
- *
- * To be implemented in the next milestone.
+ * Authenticate an existing user.
  */
 export const login = async (req, res) => {
-  return res.status(501).json({
-    success: false,
-    message: "User login is not implemented yet.",
-  });
+  try {
+    const result = await authService.login(req.body);
+
+    return res.status(200).json({
+      success: true,
+      message: "Login successful.",
+      data: result,
+    });
+  } catch (error) {
+    // Invalid email or password
+    if (error.message === "Invalid email or password.") {
+      return res.status(401).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while logging in.",
+    });
+  }
 };

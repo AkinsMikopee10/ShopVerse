@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
-import { findByEmail, createUser } from "../repositories/user.repository.js";
+import {
+  findByEmail,
+  findByEmailWithPassword,
+  createUser,
+} from "../repositories/user.repository.js";
 import { generateAccessToken } from "../utils/jwt.js";
 
 /**
@@ -30,6 +34,51 @@ export const register = async (userData) => {
   });
 
   // Generate an access token for the new user.
+  const token = generateAccessToken({
+    userId: user._id,
+    role: user.role,
+  });
+
+  // Return a safe response.
+  return {
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      avatar: user.avatar,
+      isVerified: user.isVerified,
+    },
+    token,
+  };
+};
+
+/**
+ * Authenticate an existing user.
+ *
+ * @param {Object} credentials
+ * @returns {Promise<Object>}
+ */
+
+export const login = async (credentials) => {
+  const { email, password } = credentials;
+
+  // Retrieve the user including the password hash.
+  const user = await findByEmailWithPassword(email);
+
+  // Do not reveal whether the email exists.
+  if (!user) {
+    throw new Error("Invalid email or password.");
+  }
+
+  // Compare the provided password with the stored hash.
+  const passwordMatches = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatches) {
+    throw new Error("Invalid email or password.");
+  }
+
+  // Generate an access token for the authenticated user.
   const token = generateAccessToken({
     userId: user._id,
     role: user.role,
