@@ -55,11 +55,23 @@ class ProductRepository {
     return Product.findById(id).populate(PRODUCT_POPULATE);
   }
 
+  async findOne(filter, options = {}) {
+    const { populate = true } = options;
+
+    let query = Product.findOne(filter);
+
+    if (populate) {
+      query = query.populate(PRODUCT_POPULATE);
+    }
+
+    return query;
+  }
+
   async findBySlug(slug) {
-    return Product.findOne({
+    return this.findOne({
       slug,
       isActive: true,
-    }).populate(PRODUCT_POPULATE);
+    });
   }
 
   async create(productData) {
