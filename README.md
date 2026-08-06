@@ -71,3 +71,33 @@ Enhancements include:
 - Path aliases (`@/`)
 - Accessible default component APIs
 - Reusable layout primitives (`Stack`, `Flex`, `Section`)
+
+## Sprint 2 — Authentication & User Management
+
+### Milestone 1 — Backend Authentication Foundation ✅
+
+Completed:
+
+- User model
+- JWT utility
+- Authentication middleware
+- User repository
+- Authentication service scaffold
+- Authentication controller scaffold
+- Authentication routes scaffold
+
+Architecture established:
+
+Routes
+↓
+Controllers
+↓
+Services
+↓
+Repositories
+↓
+MongoDB
+
+No authentication business logic has been implemented yet.
+
+Registration and login will be implemented in Milestone 2.
