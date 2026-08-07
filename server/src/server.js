@@ -1,10 +1,15 @@
-import dotenv from "dotenv";
+import "dotenv/config";
 import app from "./app.js";
-
-dotenv.config();
+import connectDB from "./config/db.js";
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`ShopVerse API running on http://localhost:${PORT}`);
-});
+const startServer = async () => {
+  await connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`ShopVerse API running on http://localhost:${PORT}`);
+  });
+};
+
+startServer();

@@ -84,6 +84,10 @@ const productSchema = new Schema(
       type: Boolean,
       default: true,
     },
+  },
+  {
+    timestamps: true,
+    collection: "products",
 
     toJSON: {
       virtuals: true,
@@ -91,10 +95,6 @@ const productSchema = new Schema(
     toObject: {
       virtuals: true,
     },
-  },
-  {
-    timestamps: true,
-    collection: "products",
   }
 );
 
@@ -105,7 +105,6 @@ productSchema.index({
 });
 
 // Fast lookups
-productSchema.index({ slug: 1 }, { unique: true });
 productSchema.index({ category: 1 });
 productSchema.index({ price: 1 });
 productSchema.index({ isFeatured: 1 });

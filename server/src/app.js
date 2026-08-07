@@ -1,5 +1,8 @@
 import express from "express";
 import cors from "cors";
+import authRoutes from "./routes/auth.routes.js";
+import productRoutes from "./routes/product.routes.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 
 const app = express();
 
@@ -20,9 +23,15 @@ app.get("/", (req, res) => {
 });
 
 /**
+ * API Routes
+ */
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/products", productRoutes);
+
+/**
  * Global Error Handler
  * Must always be registered after routes.
  */
-// app.use(errorHandler);
+app.use(errorHandler);
 
 export default app;

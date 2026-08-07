@@ -3,7 +3,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 class ProductController {
   getProducts = asyncHandler(async (req, res) => {
-    const products = await productService.getProducts(req.query);
+    const products = await productService.getProducts(req.validatedQuery);
 
     res.status(200).json({
       success: true,
