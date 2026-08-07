@@ -36,6 +36,10 @@ const categorySchema = new Schema(
       type: Boolean,
       default: true,
     },
+  },
+  {
+    timestamps: true,
+    collection: "categories",
 
     toJSON: {
       virtuals: true,
@@ -43,16 +47,8 @@ const categorySchema = new Schema(
     toObject: {
       virtuals: true,
     },
-  },
-  {
-    timestamps: true,
-    collection: "categories",
   }
 );
-
-// Indexes
-categorySchema.index({ slug: 1 }, { unique: true });
-categorySchema.index({ name: 1 });
 
 const Category = mongoose.model("Category", categorySchema);
 
