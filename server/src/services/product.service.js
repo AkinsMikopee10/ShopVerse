@@ -11,11 +11,27 @@ class ProductService {
     return product;
   }
 
+  getSortValue(sort) {
+    const sortMap = {
+      "price-asc": "price",
+      "price-desc": "-price",
+      newest: "-createdAt",
+      oldest: "createdAt",
+    };
+
+    return sortMap[sort] ?? "-createdAt";
+  }
+
   async getProducts(options = {}) {
-    const { category, ...productOptions } = options;
+    const { category, sort, ...productOptions } = options;
+
+    const resolvedSort = this.getSortValue(sort);
 
     if (!category) {
-      return productRepository.findAll(productOptions);
+      return productRepository.findAll({
+        ...productOptions,
+        sort: resolvedSort,
+      });
     }
 
     const categoryRecord = await categoryRepository.findBySlug(category);
@@ -35,6 +51,7 @@ class ProductService {
     return productRepository.findAll({
       ...productOptions,
       category: categoryRecord._id,
+      sort: resolvedSort,
     });
   }
 
