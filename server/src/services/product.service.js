@@ -1,5 +1,6 @@
 import productRepository from "../repositories/product.repository.js";
 import AppError from "../errors/AppError.js";
+import categoryRepository from "../repositories/category.repository.js";
 
 class ProductService {
   ensureProductExists(product) {
@@ -11,7 +12,30 @@ class ProductService {
   }
 
   async getProducts(options = {}) {
-    return productRepository.findAll(options);
+    const { category, ...productOptions } = options;
+
+    if (!category) {
+      return productRepository.findAll(productOptions);
+    }
+
+    const categoryRecord = await categoryRepository.findBySlug(category);
+
+    if (!categoryRecord || !categoryRecord.isActive) {
+      return {
+        products: [],
+        pagination: {
+          page: Number(productOptions.page ?? 1),
+          limit: Number(productOptions.limit ?? 10),
+          total: 0,
+          totalPages: 0,
+        },
+      };
+    }
+
+    return productRepository.findAll({
+      ...productOptions,
+      category: categoryRecord._id,
+    });
   }
 
   async getProductById(id) {
