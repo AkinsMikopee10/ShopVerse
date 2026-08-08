@@ -28,7 +28,6 @@
   --shadow-card: 0 4px 20px rgb(0 0 0 / 20%);
   --shadow-modal: 0 20px 40px rgb(0 0 0 / 35%);
 }
-
 body {
   background: var(--background);
   color: var(--foreground);
